@@ -1,0 +1,47 @@
+name: Free Image to Video
+description: "Turn a photo or a prompt into a video clip with sound on Free Image to Video (freeimagetovideo.ai) and get the MP4 URL"
+author: Free Image to Video
+branding:
+  icon: film
+  color: purple
+inputs:
+  prompt:
+    description: What happens in the clip (the motion, the camera, the mood)
+    required: true
+  api-key:
+    description: "A key from https://freeimagetovideo.ai/settings/apikeys, passed from a secret: ${{ secrets.FREEIMAGETOVIDEO_API_KEY }}"
+    required: true
+  image-url:
+    description: A public https image URL. Set it for image to video (the photo is the first frame); leave empty for text to video
+    required: false
+    default: ""
+  duration:
+    description: "Seconds: 4, 5, 6, 8, 10 or 15. Empty = the site default"
+    required: false
+    default: ""
+  resolution:
+    description: "480p or 768p. Empty = the site default"
+    required: false
+    default: ""
+  aspect-ratio:
+    description: "16:9, 9:16 or 1:1. Empty = the site default"
+    required: false
+    default: ""
+  output-path:
+    description: If set, the MP4 is downloaded to this path in the workspace
+    required: false
+    default: ""
+  timeout-minutes:
+    description: How long to wait for the clip (runs can wait in the relaxed queue)
+    required: false
+    default: "30"
+outputs:
+  video-url:
+    description: URL of the finished MP4
+  path:
+    description: Where the MP4 was saved, if output-path was set
+  id:
+    description: The Free Image to Video task id
+runs:
+  using: node20
+  main: index.js
